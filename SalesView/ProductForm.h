@@ -21,9 +21,6 @@ namespace SalesView {
 	public ref class ProductForm : public System::Windows::Forms::Form
 	{
 	public:
-		// Build
-		Product^ product = gcnew Product();
-
 		ProductForm(void)
 		{
 			InitializeComponent();
@@ -358,9 +355,10 @@ private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e
 
 // Create/Add
 private: System::Void btnAddProduct_Click(System::Object^ sender, System::EventArgs^ e) {
-	
+	// Build
+	Product^ product = gcnew Product();
 	// PutOn
-	PutOnProduct();
+	PutOnProduct(product);
 	// Add
 	Controller::AddProduct(product);
 	// Refresh Grid
@@ -385,7 +383,7 @@ private: System::Void btnAddProduct_Click(System::Object^ sender, System::EventA
 				    "" + ProductList[i]->Stock
 		   });
 	}
-	   void PutOnProduct() {
+	   void PutOnProduct(Product^ product) {
 		   // Put on
 		   product->setId(Convert::ToInt32(textProductId->Text));
 		   product->Name = textProductName->Text;
@@ -398,9 +396,11 @@ private: System::Void btnAddProduct_Click(System::Object^ sender, System::EventA
 
 // Refresh
 private: System::Void btnUpdateProduct_Click(System::Object^ sender, System::EventArgs^ e) {
+	// Build
+	Product^ product = gcnew Product();
 	// PutOn
-	PutOnProduct();
-	Controller:: UpdateProduct(Controller::ReadProductById(product->getId()));
+	PutOnProduct(product);
+	Controller:: UpdateProduct(product);
 	// Refresh Grid
 	RefreshGrid();
 
